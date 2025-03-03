@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# Update package lists
-apt-get update -y
-# Install Nginx
+# Installs Nginx with the following configurations:
+# - Listens on port 80
+# - Returns a page containing "Holberton School" when queried at the root
+# Update package lists and install nginx with -y flag to auto-confirm
+apt-get update
 apt-get install -y nginx
-# Ensure Nginx is listening on port 80
-sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
-sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80;/' /etc/nginx/sites-available/default
-# Set up a custom HTML page
-echo 'Holberton School for the win!' > /var/www/html/index.html
-# Ensure correct ownership and permissions
-chown www-data:www-data /var/www/html/index.html
-chmod 644 /var/www/html/index.html
-# Restart Nginx without systemctl
+# Create a custom index page with the required content
+echo "Holberton School for the win!" > /var/www/html/index.html
+# Make sure nginx is listening on port 80
+sed -i 's/listen 80 default_server;/listen 80 default_server;/g' /etc/nginx/sites-available/default
+# Restart nginx without using systemctl
 service nginx restart
+# Make sure nginx starts on boot
+update-rc.d nginx defaults
