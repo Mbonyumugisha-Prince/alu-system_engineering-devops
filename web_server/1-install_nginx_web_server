@@ -1,19 +1,14 @@
-#!/usr/bin/env bash
-# Installs and configures Nginx to serve a page containing "Holberton School"
-# Stop Apache if it's running
-service apache2 stop 2>/dev/null
-apt-get -y purge apache2 apache2-utils apache2-bin apache2.2-common 2>/dev/null
-# Update package lists and install nginx
+#!/bin/env bash
+# Update the package index
 apt-get update
+# Install nginx
 apt-get install -y nginx
-# Configure nginx to serve "Holberton School" at root
-echo "Holberton School" > /var/www/html/index.nginx-debian.html
-# Ensure Nginx uses the correct default page
-sed -i 's/index.html index.nginx-debian.html/index.nginx-debian.html index.html/g' /etc/nginx/sites-available/default
+# Create a custom index.html to return "Holberton School"
+echo "Holberton School for the win!" > /var/www/html/index.html
 # Make sure nginx is listening on port 80
-sed -i 's/listen 80 default_server;/listen 80 default_server;/g' /etc/nginx/sites-available/default
-# Stop nginx if it's running, then start it
-service nginx stop 2>/dev/null
-service nginx start
-# Output 200 status code
-echo 200
+sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
+sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80;/' /etc/nginx/sites-available/default
+# Reload nginx to apply changes
+nginx -s reload
+# Ensure nginx is running
+nginx
