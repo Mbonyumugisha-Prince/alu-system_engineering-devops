@@ -1,14 +1,12 @@
 #!/usr/bin/env bash
-# Update the package index
-apt-get update
-# Install nginx
+#Updates the current state of the server
+#Installs Nginx on the server
+#Changes the user and user group ownership for editing file
+#overwrites the default page of nginx
+#restarts nginx
+apt-get -y update
 apt-get install -y nginx
-# Create a custom index.html to return "Holberton School"
+sudo chown -R $USER:$USER /var/www/html
 echo "Holberton School for the win!" > /var/www/html/index.html
-# Make sure nginx is listening on port 80
-sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
-sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80;/' /etc/nginx/sites-available/default
-# Reload nginx to apply changes
-nginx -s reload
-# Ensure nginx is running
-nginx
+sudo chown -R root:root /var/www/html
+sudo service nginx restart
