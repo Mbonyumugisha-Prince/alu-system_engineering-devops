@@ -1,12 +1,16 @@
-#!/usr/bin/env bash
-#Updates the current state of the server
-#Installs Nginx on the server
-#Changes the user and user group ownership for editing file
-#overwrites the default page of nginx
-#restarts nginx
-apt-get -y update
+#!/bin/bash
+# Update package lists
+apt-get update -y
+# Install Nginx
 apt-get install -y nginx
-sudo chown -R $USER:$USER /var/www/html
-echo "Holberton School for the win!" > /var/www/html/index.html
-sudo chown -R root:root /var/www/html
-sudo service nginx restart
+# Ensure Nginx is listening on port 80
+sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
+sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80;/' /etc/nginx/sites-available/default
+# Set up a custom HTML page
+echo 'Holberton School for the win!' > /var/www/html/index.html
+# Ensure correct ownership and permissions
+chown www-data:www-data /var/www/html/index.html
+chmod 644 /var/www/html/index.html
+# Restart Nginx without systemctl
+service nginx restart
+
