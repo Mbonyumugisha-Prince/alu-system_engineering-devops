@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Update package lists
 apt-get update -y
 # Install Nginx
@@ -13,4 +13,3 @@ chown www-data:www-data /var/www/html/index.html
 chmod 644 /var/www/html/index.html
 # Restart Nginx without systemctl
 service nginx restart
-
