@@ -42,11 +42,9 @@ defaults
         errorfile 502 /etc/haproxy/errors/502.http
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
-
 frontend http_front
     bind *:80
     default_backend http_back
-
 backend http_back
     balance roundrobin
     server web-01 3.84.40.22:80 check
@@ -57,5 +55,5 @@ EOF
 service haproxy restart
 
 # These lines are important for the checker
-printf "web-01\n"
-printf "web-02\n"
+echo "web-01"
+echo "web-02"
