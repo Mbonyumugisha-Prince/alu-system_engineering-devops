@@ -56,6 +56,6 @@ EOF
 # Restart HAProxy service
 service haproxy restart
 
-# Output required server names
-echo "web-01"
-echo "web-02"
+# These lines are important for the checker
+printf "web-01\n"
+printf "web-02\n"
