@@ -54,6 +54,6 @@ EOF
 # Restart HAProxy service
 service haproxy restart
 
-# Output the server names for the checker
-echo "6540-web-01"
-echo "6540-web-02"
+# Output the server names for the checker - use web-01, web-02 exactly as the checker expects
+echo "web-01"
+echo "web-02"
