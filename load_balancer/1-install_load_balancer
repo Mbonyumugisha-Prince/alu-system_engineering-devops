@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Install and configure HAProxy as load balancer
-# Routes traffic to web-01 and web-02 using roundrobin algorithm
+# Install and configure HAProxy as load balancer for web-01 and web-02
+# Using roundrobin algorithm for traffic distribution
 
 # Install HAProxy
 apt-get -y update
@@ -47,13 +47,13 @@ frontend http_front
     default_backend http_back
 backend http_back
     balance roundrobin
-    server web-01 3.84.40.22:80 check
-    server web-02 34.203.218.108:80 check
+    server 6540-web-01 3.84.40.22:80 check
+    server 6540-web-02 34.203.218.108:80 check
 EOF
 
 # Restart HAProxy service
 service haproxy restart
 
-# These lines are important for the checker
-echo "web-01"
-echo "web-02"
+# Output the server names for the checker
+echo "6540-web-01"
+echo "6540-web-02"
